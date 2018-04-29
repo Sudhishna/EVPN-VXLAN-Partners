@@ -1,0 +1,39 @@
+set vlans bd10 vlan-id 10
+set vlans bd10 l3-interface irb.10
+set vlans bd10 vxlan vni 10
+set vlans bd30 vlan-id 30
+set vlans bd30 l3-interface irb.30
+set vlans bd30 vxlan vni 30
+set interfaces irb unit 10 family inet address 10.10.10.1/24 virtual-gateway-address 10.10.10.100
+set interfaces irb unit 30 family inet address 30.30.30.1/24 virtual-gateway-address 30.30.30.100
+set interfaces ae1 aggregated-ether-options lacp active
+set interfaces ae1 aggregated-ether-options lacp periodic fast
+set interfaces ae1 aggregated-ether-options lacp system-id 01:01:01:01:01:01
+set interfaces ae1 unit 0 family ethernet-switching interface-mode trunk
+set interfaces ae1 unit 0 family ethernet-switching vlan members all
+set protocols evpn encapsulation vxlan
+set protocols evpn extended-vni-list 10 
+set protocols evpn extended-vni-list 30
+set protocols evpn vni-options vni 10 vrf-target export target:1:10
+set protocols evpn vni-options vni 30 vrf-target export target:1:30
+set switch-options vtep-source-interface lo0.0
+set switch-options route-distinguisher 1.1.1.1:100
+set switch-options vrf-import EVPN-IMPORT
+set switch-options vrf-target target:1:100
+set policy-options policy-statement EVPN-IMPORT term ESI from community esi
+set policy-options policy-statement EVPN-IMPORT term ESI then accept
+set policy-options policy-statement EVPN-IMPORT term vni10 from community vni10
+set policy-options policy-statement EVPN-IMPORT term vni10 then accept
+set policy-options policy-statement EVPN-IMPORT term vni30 from community vni30
+set policy-options policy-statement EVPN-IMPORT term vni30 then accept
+set policy-options community esi members target:1:100
+set policy-options community vni10 members target:1:10
+set policy-options community vni30 members target:1:30
+set routing-instances VRF-1 instance-type vrf
+set routing-instances VRF-1 interface irb.10
+set routing-instances VRF-1 interface irb.30
+set routing-instances VRF-1 interface lo0.10
+set routing-instances VRF-1 route-distinguisher 1.1.1.10:10
+set routing-instances VRF-1 vrf-target target:10:10
+set interfaces lo0 unit 0 family inet address 1.1.1.1/32
+set interfaces lo0 unit 10 family inet address 1.1.1.10/32

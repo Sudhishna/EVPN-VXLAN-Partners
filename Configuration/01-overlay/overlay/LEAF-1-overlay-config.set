@@ -1,0 +1,7 @@
+set protocols bgp group overlay type internal
+set protocols bgp group overlay local-address 1.1.1.1
+set protocols bgp group overlay family evpn signaling
+set protocols bgp group overlay local-as 65100
+set protocols bgp group overlay neighbor 2.2.2.2
+set protocols bgp group overlay neighbor 3.3.3.3
+set protocols bgp group overlay neighbor 4.4.4.4

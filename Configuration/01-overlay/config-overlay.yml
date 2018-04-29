@@ -1,0 +1,26 @@
+# Copyright 2018, Juniper Networks Pvt Ltd.
+# All rights reserved.
+# Configure the overlay in the leaf devices 
+# command example: ansible-playbook -i all.inv config-overlay.yml
+# Successfully ran on ansible version: ansible 2.4.3.0
+---
+- name: configure the overlay in the devices
+  hosts: leaf
+  connection: local
+  gather_facts: no
+  roles:
+    - Juniper.junos
+  tasks:
+    - name: "Configure op script"
+      juniper_junos_config:
+        host: "{{ inventory_hostname }}"
+        port: 22
+        config_mode: "private"
+        load: "set"
+        src: "overlay/{{ inventory_hostname }}-overlay-config.set"
+        timeout: 40
+      register: response
+    - name: "Print the config changes"
+      debug:
+        var: response.diff_lines
+

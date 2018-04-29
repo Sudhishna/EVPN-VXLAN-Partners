@@ -1,0 +1,10 @@
+delete chassis
+delete interfaces
+delete forwarding-options
+delete routing-options
+delete protocols
+delete policy-options
+delete routing-instances
+delete switch-options
+delete vlans
+delete system login

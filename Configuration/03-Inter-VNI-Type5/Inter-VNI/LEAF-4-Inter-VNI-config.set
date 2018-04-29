@@ -1,0 +1,20 @@
+set vlans bd40 vlan-id 40
+set vlans bd40 l3-interface irb.40
+set vlans bd40 vxlan vni 40
+set interfaces irb unit 40 family inet address 40.40.40.100/24
+set interfaces xe-0/0/2 unit 0 family ethernet-switching interface-mode trunk
+set interfaces xe-0/0/2 unit 0 family ethernet-switching vlan members all
+set protocols evpn encapsulation vxlan
+set switch-options vtep-source-interface lo0.0
+set switch-options route-distinguisher 4.4.4.4:100
+set switch-options vrf-target target:1:100
+set routing-instances VRF-1 instance-type vrf
+set routing-instances VRF-1 interface irb.40
+set routing-instances VRF-1 interface lo0.10
+set routing-instances VRF-1 route-distinguisher 4.4.4.10:10
+set routing-instances VRF-1 vrf-target target:10:10
+set routing-instances VRF-1 protocols evpn ip-prefix-routes advertise direct-nexthop
+set routing-instances VRF-1 protocols evpn ip-prefix-routes encapsulation vxlan
+set routing-instances VRF-1 protocols evpn ip-prefix-routes vni 5555
+set interfaces lo0 unit 0 family inet address 4.4.4.4/32
+set interfaces lo0 unit 10 family inet address 4.4.4.10/32

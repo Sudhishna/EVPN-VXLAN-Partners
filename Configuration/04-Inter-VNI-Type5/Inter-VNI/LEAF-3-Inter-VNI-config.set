@@ -1,0 +1,9 @@
+set routing-instances VRF-1 instance-type vrf
+set routing-instances VRF-1 interface irb.10
+set routing-instances VRF-1 interface irb.30
+set routing-instances VRF-1 interface lo0.10
+set routing-instances VRF-1 route-distinguisher 3.3.3.10:10
+set routing-instances VRF-1 vrf-target target:10:10
+set routing-instances VRF-1 protocols evpn ip-prefix-routes advertise direct-nexthop
+set routing-instances VRF-1 protocols evpn ip-prefix-routes encapsulation vxlan
+set routing-instances VRF-1 protocols evpn ip-prefix-routes vni 5555

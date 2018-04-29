@@ -1,0 +1,25 @@
+# Copyright 2018, Juniper Networks Pvt Ltd.
+# All rights reserved.
+# Configure the Inter-VNI Type 5 in the Leaf 1 and Leaf 3 
+# command example: ansible-playbook -i all.inv config-Inter-VNI.yml
+# Successfully ran on ansible version: ansible 2.4.3.0
+---
+- name: configure the Inter-VNI in the devices
+  hosts: leaf-1-3
+  connection: local
+  gather_facts: no
+  roles:
+    - Juniper.junos
+  tasks:
+    - name: configure the Inter-VNI in the devices
+      juniper_junos_config:
+        host: "{{ inventory_hostname }}"
+        port: 22
+        config_mode: "private"
+        load: "set"
+        src: "Inter-VNI/{{ inventory_hostname }}-Inter-VNI-config.set"
+        timeout: 40
+      register: response
+    - name: "Print the config changes"
+      debug:
+        var: response.diff_lines

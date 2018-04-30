@@ -11,7 +11,7 @@
   roles:
     - Juniper.junos
   tasks:
-    - name: configure the Inter-VNI in the devices
+    - name: "CONFIGURE THE INTER-VNI TYPE 5 IN LEAF 2 AND LEAF 4"
       juniper_junos_config:
         host: "{{ inventory_hostname }}"
         port: 22
@@ -20,6 +20,6 @@
         src: "Inter-VNI/{{ inventory_hostname }}-Inter-VNI-config.set"
         timeout: 40
       register: response
-    - name: "Print the config changes"
+    - name: "CONFIG CHANGES"
       debug:
         var: response.diff_lines

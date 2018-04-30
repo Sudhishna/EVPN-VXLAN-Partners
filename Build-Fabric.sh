@@ -10,19 +10,19 @@ PodNumber=$(echo $x | cut -d":" -f2);
 printf  "Fabric initialization begins.\r"
 
 ansible-playbook -i all.inv "01-overlay/config-overlay.yml"
-printf  "Interfaces Configured.\r"
+printf  "Overlay configured in all the leaf devices .\r"
 sleep 3
 
 ansible-playbook -i all.inv "02-Inter-VNI-Type2/config-Inter-VNI.yml"
-printf  "Scale Options Configured.\r"
+printf  "Inter-VNI Type 2 configured in Leaf 1 and Leaf 3.\r"
 sleep 3
 
 ansible-playbook -i all.inv "03-Inter-VNI-Type5/config-Inter-VNI.yml"
-printf  "Routing options set.\r"
+printf  "Inter-VNI Type 5 configured in Leaf 2 and Leaf 4.\r"
 sleep 3
 
 ansible-playbook -i all.inv "04-Inter-VNI-Type5/config-Inter-VNI.yml"
-printf  "OSPF Routing Protocol installed and iBGP configured.\r"
+printf  "Inter-VNI Type 5 configured in Leaf 1 and Leaf 3 .\r"
 sleep 3
 
 secs=$((1 * 60))

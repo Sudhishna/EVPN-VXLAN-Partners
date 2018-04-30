@@ -10,7 +10,7 @@
   roles:
     - Juniper.junos
   tasks:
-    - name: "CONFIGURE THE INTER-VNIc TYPE 2 IN LEAF 1 AND LEAF 3"
+    - name: "CONFIGURE THE INTER-VNI TYPE 2 IN LEAF 1 AND LEAF 3"
       juniper_junos_config:
         host: "{{ inventory_hostname }}"
         port: 22

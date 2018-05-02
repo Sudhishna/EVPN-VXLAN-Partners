@@ -1,4 +1,4 @@
-delete chassis
+delete protocols bgp group overlay
 delete interfaces
 delete routing-options
 delete forwarding-options

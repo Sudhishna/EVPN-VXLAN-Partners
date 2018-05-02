@@ -1,7 +1,7 @@
 # Copyright 2018, Juniper Networks Pvt Ltd.
 # All rights reserved.
-# Remove the configs in the devices
-# command example: ansible-playbook -i all.inv remove-config.yml
+# Configure the overlay in the leaf devices 
+# command example: ansible-playbook -i all.inv config-overlay.yml
 # Successfully ran on ansible version: ansible 2.4.3.0
 ---
 - hosts: leaf
@@ -10,9 +10,15 @@
   roles:
     - Juniper.junos
   tasks:
-    - name: Remove configs in the devices
-      junos_install_config:
+    - name: "CONFIGURE THE OVERLAY IN THE DEVICES"
+      juniper_junos_config:
         host: "{{ inventory_hostname }}"
-        replace: no
-        overwrite: no
-        file: "remove-config/{{ inventory_hostname }}-remove-config.set"
+        port: 22
+        config_mode: "private"
+        load: "set"
+        src: "remove-config/{{ inventory_hostname }}-remove-config.set"
+        timeout: 40
+      register: response
+    - name: "CONFIG CHANGES:"
+      debug:
+        var: response.diff_lines

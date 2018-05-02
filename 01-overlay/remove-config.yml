@@ -4,10 +4,7 @@
 # command example: ansible-playbook -i all.inv remove-config.yml
 # Successfully ran on ansible version: ansible 2.4.3.0
 ---
-- name: Remove the configs in the devices
-  vars:
-    pod_num: "{{ pod }}"
-  hosts: junos-ssh
+- hosts: leaf
   connection: local
   gather_facts: no
   roles:
@@ -15,7 +12,7 @@
   tasks:
     - name: Remove configs in the devices
       junos_install_config:
-        host: "{{ pod_num }}-{{ inventory_hostname }}"
+        host: "{{ inventory_hostname }}"
         replace: no
         overwrite: no
         file: "remove-config/{{ inventory_hostname }}-remove-config.set"

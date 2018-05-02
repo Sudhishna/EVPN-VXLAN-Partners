@@ -1,8 +1,6 @@
 delete protocols bgp group overlay
 delete vlans bd10
-delete vlans bd20
 delete vlans bd30
-delete vlans bd40
 delete interfaces irb
 delete interfaces ae1 aggregated-ether-options
 delete interfaces ae1 unit 0
@@ -10,6 +8,7 @@ delete protocols evpn
 delete switch-options
 delete policy-options policy-statement EVPN-IMPORT
 delete policy-options community esi
+delete policy-options community vni10
+delete policy-options community vni30
 delete routing-instances
 delete interfaces lo0
-delete interfaces xe-0/0/2
